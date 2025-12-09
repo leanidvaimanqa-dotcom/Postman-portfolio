@@ -1,0 +1,503 @@
+{
+	"info": {
+		"_postman_id": "e8ec6cd9-402d-47fd-a3cf-873e5fa75367",
+		"name": "Films (My API) Auto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49101593",
+		"_collection_link": "https://leman33-7989578.postman.co/workspace/leman33's-Workspace~baee5c10-db9f-431c-8e43-06d7b570782f/collection/49101593-e8ec6cd9-402d-47fd-a3cf-873e5fa75367?action=share&source=collection_link&creator=49101593"
+	},
+	"item": [
+		{
+			"name": "DEL ALL Films",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{films_url}}/films",
+					"host": [
+						"{{films_url}}"
+					],
+					"path": [
+						"films"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD ALL Films",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"if (pm.response.code === 200) {\r",
+							"    console.log(\"✅ Коллекция фильмов создана\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function getRandomTitle() {\r",
+							"    var titles = [\r",
+							"        \"Красная планета\", \"Тихий океан\", \"Ночной патруль\", \"Последний герой\", \"Скрытый город\",\r",
+							"        \"Ледяной шторм\", \"Огненный путь\", \"Забытый остров\", \"Темный лес\", \"Золотой рассвет\",\r",
+							"        \"Сердце дракона\", \"Лунная дорога\", \"Стальной град\", \"Чёрное зеркало\", \"Гром над морем\",\r",
+							"        \"Хрустальный замок\", \"Туман над рекой\", \"Осколки времени\", \"Безмолвный свидетель\", \"Кодекс чести\",\r",
+							"        \"Город теней\", \"Путешествие домой\", \"Сияние звезды\", \"Падение ангела\", \"Мост судьбы\",\r",
+							"        \"Северный ветер\", \"След в ночи\", \"Закон улиц\", \"Чужое небо\", \"Белая пустыня\",\r",
+							"        \"Невидимый враг\", \"Хроники дождя\", \"Песнь света\", \"Пленники времени\", \"Огни мегаполиса\",\r",
+							"        \"Сломанная стрела\", \"Зимний сон\", \"Летний шёпот\", \"Пятая линия\",\r",
+							"        \"За горизонтом\", \"Точка возврата\", \"Пепел и снег\", \"Граница мира\", \"Эхо грозы\",\r",
+							"        \"Новая эра\", \"Одинокий волк\", \"Тайна озера\", \"Легенда города\", \"Крылья ночи\"\r",
+							"    ];\r",
+							"    return titles[Math.floor(Math.random() * titles.length)];\r",
+							"}\r",
+							"\r",
+							"function getRandomDirector() {\r",
+							"    var directors = [\r",
+							"        \"Steven Spielberg\", \"Christopher Nolan\", \"Quentin Tarantino\", \"Martin Scorsese\", \"James Cameron\",\r",
+							"        \"Ridley Scott\", \"Peter Jackson\", \"Alfred Hitchcock\", \"Stanley Kubrick\", \"Francis Ford Coppola\",\r",
+							"        \"Clint Eastwood\", \"Tim Burton\", \"David Fincher\", \"Guy Ritchie\", \"George Lucas\",\r",
+							"        \"Robert Zemeckis\", \"Ron Howard\", \"Wes Anderson\", \"Denis Villeneuve\", \"Guillermo del Toro\",\r",
+							"        \"Sergio Leone\", \"Akira Kurosawa\", \"Hayao Miyazaki\", \"Lars von Trier\", \"Sofia Coppola\",\r",
+							"        \"Coen Brothers\", \"Patty Jenkins\", \"Greta Gerwig\", \"Bong Joon-ho\", \"Spike Lee\",\r",
+							"        \"Sam Mendes\", \"Ang Lee\", \"JJ Abrams\", \"Kenneth Branagh\", \"Robert Rodriguez\",\r",
+							"        \"Woody Allen\", \"Pedro Almodóvar\", \"Jean-Luc Godard\", \"David Lynch\", \"Paul Thomas Anderson\",\r",
+							"        \"Michael Bay\", \"Bryan Singer\", \"Kathryn Bigelow\", \"Ridley Scott\", \"Gore Verbinski\",\r",
+							"        \"Luc Besson\", \"Richard Linklater\", \"Joel Schumacher\", \"M. Night Shyamalan\", \"John Woo\"\r",
+							"    ];\r",
+							"    return directors[Math.floor(Math.random() * directors.length)];\r",
+							"}\r",
+							"\r",
+							"\r",
+							"function getRandomYear() {\r",
+							"    var min = 1980;\r",
+							"    var max = 2025;\r",
+							"    return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"\r",
+							"function getRandomGenre() {\r",
+							"    var genres = [\r",
+							"        \"Action\",\"Comedy\",\"Drama\",\"Horror\",\"Sci-Fi\",\"Fantasy\",\"Romance\",\"Thriller\",\"Crime\",\"Adventure\"\r",
+							"    ];\r",
+							"    return genres[Math.floor(Math.random() * genres.length)];\r",
+							"}\r",
+							"\r",
+							"function getRandomRating() {\r",
+							"    var min = 6.3;\r",
+							"    var max = 8.0;\r",
+							"    var rating = Math.random() * (max - min) + min;\r",
+							"    return Number(rating.toFixed(1)); // один знак после запятой\r",
+							"}\r",
+							"\r",
+							"\r",
+							"// формируем массив из 20 фильмов\r",
+							"var films = [];\r",
+							"for (var i = 0; i < 20; i++) {\r",
+							"    films.push({\r",
+							"        title: getRandomTitle(),\r",
+							"        director: getRandomDirector(),\r",
+							"        year: getRandomYear(),\r",
+							"        genre: getRandomGenre(),\r",
+							"        rating: getRandomRating()\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"pm.environment.set(\"films_array\", JSON.stringify(films));\r",
+							"console.log(\"Films array:\", films);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{films_array}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{films_url}}/films/batch",
+					"host": [
+						"{{films_url}}"
+					],
+					"path": [
+						"films",
+						"batch"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD with Dynamic Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"if (pm.response.code === 200) {\r",
+							"    console.log(\"✅ Коллекция фильмов создана\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Используем встроенные функции\r",
+							"pm.environment.set(\"movie_year\", _.random(1980, 2024));\r",
+							"pm.environment.set(\"movie_rating\", _.random(1.0, 10.0, true).toFixed(1));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n  \"title\": \"{{$randomFirstName}}\",\r\n  \"director\": \"{{$randomFullName}}\",\r\n  \"year\": {{movie_year}},\r\n  \"genre\": \"{{$randomLastName}}\",\r\n  \"rating\": {{movie_rating}}\r\n},\r\n{\r\n  \"title\": \"{{$randomFirstName}}\",\r\n  \"director\": \"{{$randomFullName}}\",\r\n  \"year\": {{movie_year}},\r\n  \"genre\": \"{{$randomLastName}}\",\r\n  \"rating\": {{movie_rating}}\r\n},\r\n{\r\n  \"title\": \"{{$randomFirstName}}\",\r\n  \"director\": \"{{$randomFullName}}\",\r\n  \"year\": {{movie_year}},\r\n  \"genre\": \"{{$randomLastName}}\",\r\n  \"rating\": {{movie_rating}}\r\n}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{films_url}}/films/batch",
+					"host": [
+						"{{films_url}}"
+					],
+					"path": [
+						"films",
+						"batch"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Films",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{films_url}}/films",
+					"host": [
+						"{{films_url}}"
+					],
+					"path": [
+						"films"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD Film",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"if (pm.response.code === 200) {\r",
+							"    var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"filmid\", jsonData.id);\r",
+							"    console.log(\"✅ ID сохранен:\", jsonData.id);\r",
+							"    pm.test(\"Film created successfully\", function () {\r",
+							"     pm.expect(jsonData.id).to.be.a('number');\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Бегущий по лезвию 2049\",\r\n  \"director\": \"Дени Вильнёв\",\r\n  \"year\": 2017,\r\n  \"genre\": \"Фантастика\",\r\n  \"rating\": 8.0\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{films_url}}/films",
+					"host": [
+						"{{films_url}}"
+					],
+					"path": [
+						"films"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Id Film",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{films_url}}/films/{{filmid}}",
+					"host": [
+						"{{films_url}}"
+					],
+					"path": [
+						"films",
+						"{{filmid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Film",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"if (pm.response.code === 200) {\r",
+							"    console.log(\"✅ Данные фильма обновлены успешно.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Бегущий по лезвию 2049\",\r\n  \"director\": \"Дени Вильнёв\",\r\n  \"year\": 2018,\r\n  \"genre\": \"Фантастика\",\r\n  \"rating\": 8.0\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{films_url}}/films/{{filmid}}",
+					"host": [
+						"{{films_url}}"
+					],
+					"path": [
+						"films",
+						"{{filmid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH Film",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"if (pm.response.code === 200) {\r",
+							"    console.log(\"✅ Рейтинг фильма изменен.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rating\": 8.9\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{films_url}}/films/{{filmid}}",
+					"host": [
+						"{{films_url}}"
+					],
+					"path": [
+						"films",
+						"{{filmid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "filmid",
+			"value": ""
+		}
+	]
+}
